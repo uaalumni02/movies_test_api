@@ -15,7 +15,19 @@ describe 'Movies API', types: :request do
 
   describe 'POST /movies' do
       it 'creates a new movie'do
+      expect {
       post '/movies', params: {movie: {name: 'Best Man'}}
+      }.to change { Movie.count }.from(0).to(1)
+      expect(response).to have_http_status(:created)
     end
+  end
+  describe 'DELETE /movies/:id' do
+      it 'deletes a movie' do
+        FactoryBot.create(:movie, name: 'Coming to America' )
+
+          delete '/movies/1'
+
+          expect(response).to have_http_status(:no_content)
+      end
   end
 end
