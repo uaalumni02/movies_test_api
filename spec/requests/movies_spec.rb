@@ -23,10 +23,8 @@ describe 'Movies API', types: :request do
   end
   describe 'DELETE /movies/:id' do
       it 'deletes a movie' do
-        FactoryBot.create(:movie, name: 'Coming to America' )
-
-          delete '/movies/1'
-
+       movie = FactoryBot.create(:movie, name: 'Coming to America' )
+          delete "/movies/#{movie.id}"
           expect(response).to have_http_status(:no_content)
       end
   end
